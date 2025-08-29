@@ -5,6 +5,7 @@ import logging
 from celery import shared_task
 from django.utils import timezone
 from apps.inventory.services.threshold_service import ThresholdService
+from apps.inventory.services.qr_service import QRService
 
 logger = logging.getLogger(__name__)
 

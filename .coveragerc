@@ -1,0 +1,38 @@
+[run]
+source = apps
+omit = 
+    */migrations/*
+    */venv/*
+    */env/*
+    */node_modules/*
+    */tests/*
+    manage.py
+    config/wsgi.py
+    config/asgi.py
+    */settings/*
+    */__pycache__/*
+    */static/*
+    */media/*
+    */locale/*
+    */fixtures/*
+
+[report]
+precision = 2
+show_missing = True
+skip_covered = False
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    def __str__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    class .*\bProtocol\):
+    @(abc\.)?abstractmethod
+
+[html]
+directory = htmlcov
+title = Stock Management System Coverage Report
+
+[xml]
+output = coverage.xml

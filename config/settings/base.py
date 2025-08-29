@@ -75,6 +75,11 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'apps.core.advanced_middleware.HTTPSEnforcementMiddleware',
+    'apps.core.advanced_middleware.AdvancedSecurityMiddleware',
+    'apps.core.advanced_middleware.InputValidationMiddleware',
+    'apps.core.advanced_middleware.BruteForceProtectionMiddleware',
+    'apps.core.advanced_middleware.ScanDetectionMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -85,6 +90,8 @@ MIDDLEWARE = [
     'apps.core.middleware.SecurityHeadersMiddleware',
     'apps.core.middleware.AuditMiddleware',
     'apps.core.middleware.RequestLoggingMiddleware',
+    'apps.core.advanced_middleware.ContentSecurityPolicyMiddleware',
+    'apps.core.advanced_middleware.SecurityMonitoringMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -329,6 +336,41 @@ STOCK_SYSTEM = {
     'AUDIT_HASH_ALGORITHM': 'sha256',
     'DATA_RETENTION_DAYS': env('DATA_RETENTION_DAYS'),
     'THRESHOLD_CHECK_INTERVAL': 300,  # 5 minutes
+}
+
+# Security settings - OWASP ASVS Level 1/2
+TRUSTED_IPS = [
+    '127.0.0.1',
+    '::1',
+    '10.0.0.0/8',      # Private networks
+    '172.16.0.0/12',   # Private networks  
+    '192.168.0.0/16',  # Private networks
+]
+
+# Security headers configuration
+SECURITY_HEADERS = {
+    'X-Content-Type-Options': 'nosniff',
+    'X-Frame-Options': 'DENY',
+    'X-XSS-Protection': '1; mode=block',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+}
+
+# Rate limiting settings
+RATE_LIMITING = {
+    'LOGIN_ATTEMPTS_WINDOW': 900,  # 15 minutes
+    'LOGIN_ATTEMPTS_LIMIT': 5,
+    'API_REQUESTS_WINDOW': 3600,   # 1 hour
+    'API_REQUESTS_LIMIT': 1000,
+    'BRUTE_FORCE_BLOCK_DURATION': 1800,  # 30 minutes
+}
+
+# Input validation settings
+INPUT_VALIDATION = {
+    'MAX_STRING_LENGTH': 10000,
+    'MAX_JSON_DEPTH': 10,
+    'ALLOWED_FILE_TYPES': ['png', 'jpg', 'jpeg', 'pdf'],
+    'MAX_FILE_SIZE': 5 * 1024 * 1024,  # 5MB
 }
 
 # File upload settings
