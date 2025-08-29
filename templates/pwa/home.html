@@ -1,0 +1,241 @@
+{% extends 'pwa/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <h1 class="text-3xl font-bold text-gray-900 mb-6">
+                {% trans "Welcome" %}, {{ user.get_full_name|default:user.username }}!
+            </h1>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% if user.profile.is_technician %}
+                    <!-- Scan QR Code -->
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M12 12h4.01"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">
+                                    {% trans "Scan QR Code" %}
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    {% trans "Scan article QR codes to add to cart or declare usage" %}
+                                </p>
+                                <a href="{% url 'pwa:scan_qr' %}" class="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                    {% trans "Start Scanning" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Cart -->
+                    <div class="bg-green-50 p-6 rounded-lg border border-green-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v5a2 2 0 11-4 0v-5m4 0V9a2 2 0 10-4 0v4.01"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">
+                                    {% trans "My Cart" %}
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    {% trans "View and manage your current cart" %}
+                                </p>
+                                <a href="{% url 'pwa:my_cart' %}" class="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+                                    {% trans "View Cart" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- My Demands -->
+                <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-8 w-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-gray-900">
+                                {% if user.profile.is_technician %}
+                                    {% trans "My Demands" %}
+                                {% else %}
+                                    {% trans "All Demands" %}
+                                {% endif %}
+                            </h3>
+                            <p class="text-sm text-gray-600">
+                                {% trans "View and track material demands" %}
+                            </p>
+                            <a href="{% url 'pwa:my_demands' %}" class="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700">
+                                {% trans "View Demands" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                {% if user.profile.is_admin %}
+                    <!-- Admin Panel -->
+                    <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">
+                                    {% trans "Admin Panel" %}
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    {% trans "Manage articles, users, and system settings" %}
+                                </p>
+                                <a href="{% url 'admin:index' %}" class="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-700">
+                                    {% trans "Open Admin" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Documentation -->
+                    <div class="bg-indigo-50 p-6 rounded-lg border border-indigo-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <svg class="h-8 w-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-gray-900">
+                                    {% trans "API Documentation" %}
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    {% trans "View API documentation and test endpoints" %}
+                                </p>
+                                <a href="{% url 'swagger-ui' %}" class="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                    {% trans "View API Docs" %}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats -->
+    {% if user.profile.is_technician %}
+        <div class="mt-8 bg-white overflow-hidden shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">
+                    {% trans "Quick Stats" %}
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600" id="cart-items-count">-</div>
+                        <div class="text-sm text-gray-600">{% trans "Items in Cart" %}</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600" id="stock-items-count">-</div>
+                        <div class="text-sm text-gray-600">{% trans "Stock Items" %}</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-purple-600" id="pending-demands-count">-</div>
+                        <div class="text-sm text-gray-600">{% trans "Pending Demands" %}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<!-- Install PWA Prompt -->
+<div id="install-prompt" class="hidden fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-lg shadow-lg max-w-sm">
+    <div class="flex items-center">
+        <div class="flex-grow">
+            <h3 class="font-medium">{% trans "Install App" %}</h3>
+            <p class="text-sm opacity-90">{% trans "Install this app for better performance" %}</p>
+        </div>
+        <button id="install-btn" class="ml-4 px-3 py-2 bg-white text-blue-600 rounded text-sm font-medium">
+            {% trans "Install" %}
+        </button>
+        <button id="dismiss-install" class="ml-2 text-white opacity-75 hover:opacity-100">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// PWA Install Prompt
+let deferredPrompt;
+const installPrompt = document.getElementById('install-prompt');
+const installBtn = document.getElementById('install-btn');
+const dismissBtn = document.getElementById('dismiss-install');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installPrompt.classList.remove('hidden');
+});
+
+installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        deferredPrompt = null;
+        installPrompt.classList.add('hidden');
+    }
+});
+
+dismissBtn.addEventListener('click', () => {
+    installPrompt.classList.add('hidden');
+});
+
+// Load quick stats for technicians
+{% if user.profile.is_technician %}
+async function loadQuickStats() {
+    try {
+        // Load cart stats
+        const cartResponse = await fetch('/api/my/cart/');
+        if (cartResponse.ok) {
+            const cartData = await cartResponse.json();
+            document.getElementById('cart-items-count').textContent = cartData.total_items || 0;
+        }
+        
+        // Load stock stats
+        const stockResponse = await fetch('/api/my/stock/');
+        if (stockResponse.ok) {
+            const stockData = await stockResponse.json();
+            document.getElementById('stock-items-count').textContent = stockData.stock_items.length;
+        }
+        
+        // Load demands stats
+        const demandsResponse = await fetch('/api/demandes/?status=SUBMITTED');
+        if (demandsResponse.ok) {
+            const demandsData = await demandsResponse.json();
+            document.getElementById('pending-demands-count').textContent = demandsData.count || 0;
+        }
+    } catch (error) {
+        console.error('Error loading stats:', error);
+    }
+}
+
+// Load stats on page load
+loadQuickStats();
+{% endif %}
+</script>
+{% endblock %}

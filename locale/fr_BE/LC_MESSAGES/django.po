@@ -1,0 +1,471 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Stock Management System\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-30 00:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French (Belgium)\n"
+"Language: fr_BE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+# User roles
+msgid "Administrator"
+msgstr "Administrateur"
+
+msgid "Technician"
+msgstr "Technicien"
+
+# Languages
+msgid "French (Belgium)"
+msgstr "Français (Belgique)"
+
+msgid "Dutch (Belgium)"
+msgstr "Néerlandais (Belgique)"
+
+msgid "English"
+msgstr "Anglais"
+
+# Models - Article
+msgid "Article"
+msgstr "Article"
+
+msgid "Articles"
+msgstr "Articles"
+
+msgid "Reference"
+msgstr "Référence"
+
+msgid "Name"
+msgstr "Nom"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Unit of measurement"
+msgstr "Unité de mesure"
+
+msgid "Active"
+msgstr "Actif"
+
+msgid "Category"
+msgstr "Catégorie"
+
+msgid "Manufacturer"
+msgstr "Fabricant"
+
+msgid "Model number"
+msgstr "Numéro de modèle"
+
+msgid "Safety stock"
+msgstr "Stock de sécurité"
+
+msgid "Cost price"
+msgstr "Prix de revient"
+
+# Units
+msgid "Piece"
+msgstr "Pièce"
+
+msgid "Meter"
+msgstr "Mètre"
+
+msgid "Kilogram"
+msgstr "Kilogramme"
+
+msgid "Liter"
+msgstr "Litre"
+
+msgid "Box"
+msgstr "Boîte"
+
+msgid "Roll"
+msgstr "Rouleau"
+
+msgid "Set"
+msgstr "Ensemble"
+
+# Models - Stock
+msgid "Technician Stock"
+msgstr "Stock Technicien"
+
+msgid "Quantity"
+msgstr "Quantité"
+
+msgid "Reserved quantity"
+msgstr "Quantité réservée"
+
+msgid "Stock Threshold"
+msgstr "Seuil de Stock"
+
+msgid "Minimum quantity"
+msgstr "Quantité minimum"
+
+# Models - Orders
+msgid "Cart"
+msgstr "Panier"
+
+msgid "Carts"
+msgstr "Paniers"
+
+msgid "Draft"
+msgstr "Brouillon"
+
+msgid "Submitted"
+msgstr "Soumis"
+
+msgid "Demand"
+msgstr "Demande"
+
+msgid "Demands"
+msgstr "Demandes"
+
+msgid "Approved"
+msgstr "Approuvé"
+
+msgid "Partially Approved"
+msgstr "Partiellement Approuvé"
+
+msgid "Refused"
+msgstr "Refusé"
+
+msgid "Prepared"
+msgstr "Préparé"
+
+msgid "Handed Over"
+msgstr "Remis"
+
+msgid "Closed"
+msgstr "Clos"
+
+msgid "Digital Signature"
+msgstr "Signature Numérique"
+
+msgid "PIN Code"
+msgstr "Code PIN"
+
+# Navigation
+msgid "Home"
+msgstr "Accueil"
+
+msgid "Scan QR"
+msgstr "Scanner QR"
+
+msgid "My Cart"
+msgstr "Mon Panier"
+
+msgid "My Demands"
+msgstr "Mes Demandes"
+
+msgid "All Demands"
+msgstr "Toutes les Demandes"
+
+msgid "Logout"
+msgstr "Déconnexion"
+
+msgid "Language"
+msgstr "Langue"
+
+# Home page
+msgid "Welcome"
+msgstr "Bienvenue"
+
+msgid "Scan QR Code"
+msgstr "Scanner le Code QR"
+
+msgid "Scan article QR codes to add to cart or declare usage"
+msgstr "Scanner les codes QR d'articles pour ajouter au panier ou déclarer l'usage"
+
+msgid "Start Scanning"
+msgstr "Commencer le Scan"
+
+msgid "View and manage your current cart"
+msgstr "Voir et gérer votre panier actuel"
+
+msgid "View Cart"
+msgstr "Voir le Panier"
+
+msgid "View and track material demands"
+msgstr "Voir et suivre les demandes de matériel"
+
+msgid "View Demands"
+msgstr "Voir les Demandes"
+
+msgid "Admin Panel"
+msgstr "Panneau d'Administration"
+
+msgid "Manage articles, users, and system settings"
+msgstr "Gérer les articles, utilisateurs et paramètres système"
+
+msgid "Open Admin"
+msgstr "Ouvrir l'Admin"
+
+msgid "API Documentation"
+msgstr "Documentation API"
+
+msgid "View API documentation and test endpoints"
+msgstr "Voir la documentation API et tester les points d'accès"
+
+msgid "View API Docs"
+msgstr "Voir les Docs API"
+
+msgid "Quick Stats"
+msgstr "Statistiques Rapides"
+
+msgid "Items in Cart"
+msgstr "Articles dans le Panier"
+
+msgid "Stock Items"
+msgstr "Articles en Stock"
+
+msgid "Pending Demands"
+msgstr "Demandes en Attente"
+
+msgid "Install App"
+msgstr "Installer l'App"
+
+msgid "Install this app for better performance"
+msgstr "Installer cette app pour de meilleures performances"
+
+msgid "Install"
+msgstr "Installer"
+
+# QR Scanner
+msgid "Point camera at QR code"
+msgstr "Pointer la caméra vers le code QR"
+
+msgid "QR code will be scanned automatically"
+msgstr "Le code QR sera scanné automatiquement"
+
+msgid "Initializing camera..."
+msgstr "Initialisation de la caméra..."
+
+msgid "Camera access required"
+msgstr "Accès à la caméra requis"
+
+msgid "Please allow camera access to scan QR codes"
+msgstr "Veuillez autoriser l'accès à la caméra pour scanner les codes QR"
+
+msgid "Retry"
+msgstr "Réessayer"
+
+msgid "Stop Scanning"
+msgstr "Arrêter le Scan"
+
+msgid "Switch Camera"
+msgstr "Changer de Caméra"
+
+msgid "Toggle Flash"
+msgstr "Basculer le Flash"
+
+msgid "QR Code Detected"
+msgstr "Code QR Détecté"
+
+msgid "Scanned Content"
+msgstr "Contenu Scanné"
+
+msgid "View Article"
+msgstr "Voir l'Article"
+
+msgid "Quick Add to Cart"
+msgstr "Ajout Rapide au Panier"
+
+msgid "Quick Declare Usage"
+msgstr "Déclaration Rapide d'Usage"
+
+msgid "Scan Again"
+msgstr "Scanner à Nouveau"
+
+msgid "Manual Entry"
+msgstr "Saisie Manuelle"
+
+msgid "Can't scan? Enter the article reference manually:"
+msgstr "Impossible de scanner ? Entrez la référence de l'article manuellement :"
+
+msgid "Article Reference"
+msgstr "Référence Article"
+
+msgid "Look Up"
+msgstr "Rechercher"
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "optional"
+msgstr "optionnel"
+
+msgid "Add to Cart"
+msgstr "Ajouter au Panier"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Quantity Used"
+msgstr "Quantité Utilisée"
+
+msgid "Location/Usage"
+msgstr "Lieu/Usage"
+
+msgid "Where was this used?"
+msgstr "Où cela a-t-il été utilisé ?"
+
+msgid "Declare Usage"
+msgstr "Déclarer l'Usage"
+
+# Error messages
+msgid "Only technicians can have carts"
+msgstr "Seuls les techniciens peuvent avoir des paniers"
+
+msgid "Article reference is required"
+msgstr "La référence de l'article est requise"
+
+msgid "Quantity must be positive"
+msgstr "La quantité doit être positive"
+
+msgid "Article not found"
+msgstr "Article non trouvé"
+
+msgid "Location is required"
+msgstr "Le lieu est requis"
+
+msgid "Please enter a valid quantity"
+msgstr "Veuillez entrer une quantité valide"
+
+msgid "Please enter a location"
+msgstr "Veuillez entrer un lieu"
+
+msgid "Failed to add to cart"
+msgstr "Échec de l'ajout au panier"
+
+msgid "Failed to declare usage"
+msgstr "Échec de la déclaration d'usage"
+
+msgid "Item added to cart successfully"
+msgstr "Article ajouté au panier avec succès"
+
+msgid "Usage declared successfully"
+msgstr "Usage déclaré avec succès"
+
+# Common actions
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Create"
+msgstr "Créer"
+
+msgid "Update"
+msgstr "Mettre à jour"
+
+msgid "Submit"
+msgstr "Soumettre"
+
+msgid "Approve"
+msgstr "Approuver"
+
+msgid "Refuse"
+msgstr "Refuser"
+
+msgid "Prepare"
+msgstr "Préparer"
+
+msgid "Close"
+msgstr "Fermer"
+
+# Status messages
+msgid "Success"
+msgstr "Succès"
+
+msgid "Error"
+msgstr "Erreur"
+
+msgid "Warning"
+msgstr "Attention"
+
+msgid "Info"
+msgstr "Information"
+
+# Date/Time
+msgid "Created at"
+msgstr "Créé le"
+
+msgid "Updated at"
+msgstr "Mis à jour le"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Time"
+msgstr "Heure"
+
+# Generic
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
+msgid "All"
+msgstr "Tous"
+
+msgid "None"
+msgstr "Aucun"
+
+msgid "Other"
+msgstr "Autre"
+
+msgid "Unknown"
+msgstr "Inconnu"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Count"
+msgstr "Nombre"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Status"
+msgstr "Statut"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Filter"
+msgstr "Filtrer"
+
+msgid "Sort"
+msgstr "Trier"
+
+msgid "Export"
+msgstr "Exporter"
+
+msgid "Import"
+msgstr "Importer"
+
+msgid "Print"
+msgstr "Imprimer"
+
+msgid "Download"
+msgstr "Télécharger"
+
+msgid "Upload"
+msgstr "Téléverser"

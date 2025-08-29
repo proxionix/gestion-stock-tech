@@ -1,0 +1,50 @@
+# Development overrides for docker-compose.yml
+version: '3.8'
+
+services:
+  web:
+    build:
+      target: development
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.dev
+      - DEBUG=True
+    volumes:
+      - .:/app
+      - ./media:/app/media
+      - ./logs:/app/logs
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "
+        python manage.py migrate &&
+        python manage.py collectstatic --noinput &&
+        python manage.py compilemessages &&
+        python manage.py runserver 0.0.0.0:8000
+      "
+
+  worker:
+    build:
+      target: development
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.dev
+      - DEBUG=True
+    volumes:
+      - .:/app
+      - ./media:/app/media
+      - ./logs:/app/logs
+
+  beat:
+    build:
+      target: development
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.dev
+      - DEBUG=True
+    volumes:
+      - .:/app
+      - ./media:/app/media
+      - ./logs:/app/logs
+
+  # Disable nginx in development
+  nginx:
+    profiles:
+      - production

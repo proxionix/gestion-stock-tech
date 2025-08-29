@@ -1,0 +1,471 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Stock Management System\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-30 00:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# User roles
+msgid "Administrator"
+msgstr "Administrator"
+
+msgid "Technician"
+msgstr "Technician"
+
+# Languages
+msgid "French (Belgium)"
+msgstr "French (Belgium)"
+
+msgid "Dutch (Belgium)"
+msgstr "Dutch (Belgium)"
+
+msgid "English"
+msgstr "English"
+
+# Models - Article
+msgid "Article"
+msgstr "Article"
+
+msgid "Articles"
+msgstr "Articles"
+
+msgid "Reference"
+msgstr "Reference"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Description"
+msgstr "Description"
+
+msgid "Unit of measurement"
+msgstr "Unit of measurement"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Category"
+msgstr "Category"
+
+msgid "Manufacturer"
+msgstr "Manufacturer"
+
+msgid "Model number"
+msgstr "Model number"
+
+msgid "Safety stock"
+msgstr "Safety stock"
+
+msgid "Cost price"
+msgstr "Cost price"
+
+# Units
+msgid "Piece"
+msgstr "Piece"
+
+msgid "Meter"
+msgstr "Meter"
+
+msgid "Kilogram"
+msgstr "Kilogram"
+
+msgid "Liter"
+msgstr "Liter"
+
+msgid "Box"
+msgstr "Box"
+
+msgid "Roll"
+msgstr "Roll"
+
+msgid "Set"
+msgstr "Set"
+
+# Models - Stock
+msgid "Technician Stock"
+msgstr "Technician Stock"
+
+msgid "Quantity"
+msgstr "Quantity"
+
+msgid "Reserved quantity"
+msgstr "Reserved quantity"
+
+msgid "Stock Threshold"
+msgstr "Stock Threshold"
+
+msgid "Minimum quantity"
+msgstr "Minimum quantity"
+
+# Models - Orders
+msgid "Cart"
+msgstr "Cart"
+
+msgid "Carts"
+msgstr "Carts"
+
+msgid "Draft"
+msgstr "Draft"
+
+msgid "Submitted"
+msgstr "Submitted"
+
+msgid "Demand"
+msgstr "Demand"
+
+msgid "Demands"
+msgstr "Demands"
+
+msgid "Approved"
+msgstr "Approved"
+
+msgid "Partially Approved"
+msgstr "Partially Approved"
+
+msgid "Refused"
+msgstr "Refused"
+
+msgid "Prepared"
+msgstr "Prepared"
+
+msgid "Handed Over"
+msgstr "Handed Over"
+
+msgid "Closed"
+msgstr "Closed"
+
+msgid "Digital Signature"
+msgstr "Digital Signature"
+
+msgid "PIN Code"
+msgstr "PIN Code"
+
+# Navigation
+msgid "Home"
+msgstr "Home"
+
+msgid "Scan QR"
+msgstr "Scan QR"
+
+msgid "My Cart"
+msgstr "My Cart"
+
+msgid "My Demands"
+msgstr "My Demands"
+
+msgid "All Demands"
+msgstr "All Demands"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Language"
+msgstr "Language"
+
+# Home page
+msgid "Welcome"
+msgstr "Welcome"
+
+msgid "Scan QR Code"
+msgstr "Scan QR Code"
+
+msgid "Scan article QR codes to add to cart or declare usage"
+msgstr "Scan article QR codes to add to cart or declare usage"
+
+msgid "Start Scanning"
+msgstr "Start Scanning"
+
+msgid "View and manage your current cart"
+msgstr "View and manage your current cart"
+
+msgid "View Cart"
+msgstr "View Cart"
+
+msgid "View and track material demands"
+msgstr "View and track material demands"
+
+msgid "View Demands"
+msgstr "View Demands"
+
+msgid "Admin Panel"
+msgstr "Admin Panel"
+
+msgid "Manage articles, users, and system settings"
+msgstr "Manage articles, users, and system settings"
+
+msgid "Open Admin"
+msgstr "Open Admin"
+
+msgid "API Documentation"
+msgstr "API Documentation"
+
+msgid "View API documentation and test endpoints"
+msgstr "View API documentation and test endpoints"
+
+msgid "View API Docs"
+msgstr "View API Docs"
+
+msgid "Quick Stats"
+msgstr "Quick Stats"
+
+msgid "Items in Cart"
+msgstr "Items in Cart"
+
+msgid "Stock Items"
+msgstr "Stock Items"
+
+msgid "Pending Demands"
+msgstr "Pending Demands"
+
+msgid "Install App"
+msgstr "Install App"
+
+msgid "Install this app for better performance"
+msgstr "Install this app for better performance"
+
+msgid "Install"
+msgstr "Install"
+
+# QR Scanner
+msgid "Point camera at QR code"
+msgstr "Point camera at QR code"
+
+msgid "QR code will be scanned automatically"
+msgstr "QR code will be scanned automatically"
+
+msgid "Initializing camera..."
+msgstr "Initializing camera..."
+
+msgid "Camera access required"
+msgstr "Camera access required"
+
+msgid "Please allow camera access to scan QR codes"
+msgstr "Please allow camera access to scan QR codes"
+
+msgid "Retry"
+msgstr "Retry"
+
+msgid "Stop Scanning"
+msgstr "Stop Scanning"
+
+msgid "Switch Camera"
+msgstr "Switch Camera"
+
+msgid "Toggle Flash"
+msgstr "Toggle Flash"
+
+msgid "QR Code Detected"
+msgstr "QR Code Detected"
+
+msgid "Scanned Content"
+msgstr "Scanned Content"
+
+msgid "View Article"
+msgstr "View Article"
+
+msgid "Quick Add to Cart"
+msgstr "Quick Add to Cart"
+
+msgid "Quick Declare Usage"
+msgstr "Quick Declare Usage"
+
+msgid "Scan Again"
+msgstr "Scan Again"
+
+msgid "Manual Entry"
+msgstr "Manual Entry"
+
+msgid "Can't scan? Enter the article reference manually:"
+msgstr "Can't scan? Enter the article reference manually:"
+
+msgid "Article Reference"
+msgstr "Article Reference"
+
+msgid "Look Up"
+msgstr "Look Up"
+
+msgid "Notes"
+msgstr "Notes"
+
+msgid "optional"
+msgstr "optional"
+
+msgid "Add to Cart"
+msgstr "Add to Cart"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Quantity Used"
+msgstr "Quantity Used"
+
+msgid "Location/Usage"
+msgstr "Location/Usage"
+
+msgid "Where was this used?"
+msgstr "Where was this used?"
+
+msgid "Declare Usage"
+msgstr "Declare Usage"
+
+# Error messages
+msgid "Only technicians can have carts"
+msgstr "Only technicians can have carts"
+
+msgid "Article reference is required"
+msgstr "Article reference is required"
+
+msgid "Quantity must be positive"
+msgstr "Quantity must be positive"
+
+msgid "Article not found"
+msgstr "Article not found"
+
+msgid "Location is required"
+msgstr "Location is required"
+
+msgid "Please enter a valid quantity"
+msgstr "Please enter a valid quantity"
+
+msgid "Please enter a location"
+msgstr "Please enter a location"
+
+msgid "Failed to add to cart"
+msgstr "Failed to add to cart"
+
+msgid "Failed to declare usage"
+msgstr "Failed to declare usage"
+
+msgid "Item added to cart successfully"
+msgstr "Item added to cart successfully"
+
+msgid "Usage declared successfully"
+msgstr "Usage declared successfully"
+
+# Common actions
+msgid "Save"
+msgstr "Save"
+
+msgid "Delete"
+msgstr "Delete"
+
+msgid "Edit"
+msgstr "Edit"
+
+msgid "Create"
+msgstr "Create"
+
+msgid "Update"
+msgstr "Update"
+
+msgid "Submit"
+msgstr "Submit"
+
+msgid "Approve"
+msgstr "Approve"
+
+msgid "Refuse"
+msgstr "Refuse"
+
+msgid "Prepare"
+msgstr "Prepare"
+
+msgid "Close"
+msgstr "Close"
+
+# Status messages
+msgid "Success"
+msgstr "Success"
+
+msgid "Error"
+msgstr "Error"
+
+msgid "Warning"
+msgstr "Warning"
+
+msgid "Info"
+msgstr "Info"
+
+# Date/Time
+msgid "Created at"
+msgstr "Created at"
+
+msgid "Updated at"
+msgstr "Updated at"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Time"
+msgstr "Time"
+
+# Generic
+msgid "Yes"
+msgstr "Yes"
+
+msgid "No"
+msgstr "No"
+
+msgid "All"
+msgstr "All"
+
+msgid "None"
+msgstr "None"
+
+msgid "Other"
+msgstr "Other"
+
+msgid "Unknown"
+msgstr "Unknown"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Count"
+msgstr "Count"
+
+msgid "Actions"
+msgstr "Actions"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Sort"
+msgstr "Sort"
+
+msgid "Export"
+msgstr "Export"
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Print"
+msgstr "Print"
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Upload"
+msgstr "Upload"

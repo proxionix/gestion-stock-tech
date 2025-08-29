@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ page_title }} - Stock Management{% endblock %}</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Stock Management">
+    
+    <!-- PWA Icons -->
+    <link rel="manifest" href="{% url 'pwa:manifest' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="/static/pwa/icon-192.png">
+    <link rel="apple-touch-icon" href="/static/pwa/icon-192.png">
+    
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="/static/css/app.css" rel="stylesheet">
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl font-bold">Stock Management</h1>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="{% url 'pwa:home' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                                {% trans "Home" %}
+                            </a>
+                            {% if user.profile.is_technician %}
+                                <a href="{% url 'pwa:scan_qr' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                                    {% trans "Scan QR" %}
+                                </a>
+                                <a href="{% url 'pwa:my_cart' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                                    {% trans "My Cart" %}
+                                </a>
+                            {% endif %}
+                            <a href="{% url 'pwa:my_demands' %}" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                                {% trans "Demands" %}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <span class="text-sm">
+                        {{ user.get_full_name|default:user.username }}
+                        {% if user.profile %}
+                            ({{ user.profile.get_role_display }})
+                        {% endif %}
+                    </span>
+                    <a href="{% url 'admin:logout' %}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                        {% trans "Logout" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="md:hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="{% url 'pwa:home' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">
+                    {% trans "Home" %}
+                </a>
+                {% if user.profile.is_technician %}
+                    <a href="{% url 'pwa:scan_qr' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">
+                        {% trans "Scan QR" %}
+                    </a>
+                    <a href="{% url 'pwa:my_cart' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">
+                        {% trans "My Cart" %}
+                    </a>
+                {% endif %}
+                <a href="{% url 'pwa:my_demands' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">
+                    {% trans "Demands" %}
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Messages -->
+    {% if messages %}
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} bg-{{ message.tags == 'error'|yesno:'red,green' }}-100 border border-{{ message.tags == 'error'|yesno:'red,green' }}-400 text-{{ message.tags == 'error'|yesno:'red,green' }}-700 px-4 py-3 rounded mb-4">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+            <div class="text-center text-sm text-gray-500">
+                Stock Management System v1.0 - 
+                {% trans "Language" %}: {{ LANGUAGE_CODE|upper }}
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/static/js/app.js"></script>
+    {% block extra_scripts %}{% endblock %}
+    
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    }, function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

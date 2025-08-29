@@ -1,0 +1,471 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Stock Management System\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-30 00:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Dutch (Belgium)\n"
+"Language: nl_BE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+# User roles
+msgid "Administrator"
+msgstr "Beheerder"
+
+msgid "Technician"
+msgstr "Technicus"
+
+# Languages
+msgid "French (Belgium)"
+msgstr "Frans (België)"
+
+msgid "Dutch (Belgium)"
+msgstr "Nederlands (België)"
+
+msgid "English"
+msgstr "Engels"
+
+# Models - Article
+msgid "Article"
+msgstr "Artikel"
+
+msgid "Articles"
+msgstr "Artikelen"
+
+msgid "Reference"
+msgstr "Referentie"
+
+msgid "Name"
+msgstr "Naam"
+
+msgid "Description"
+msgstr "Beschrijving"
+
+msgid "Unit of measurement"
+msgstr "Meeteenheid"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Category"
+msgstr "Categorie"
+
+msgid "Manufacturer"
+msgstr "Fabrikant"
+
+msgid "Model number"
+msgstr "Modelnummer"
+
+msgid "Safety stock"
+msgstr "Veiligheidsvoorraad"
+
+msgid "Cost price"
+msgstr "Kostprijs"
+
+# Units
+msgid "Piece"
+msgstr "Stuk"
+
+msgid "Meter"
+msgstr "Meter"
+
+msgid "Kilogram"
+msgstr "Kilogram"
+
+msgid "Liter"
+msgstr "Liter"
+
+msgid "Box"
+msgstr "Doos"
+
+msgid "Roll"
+msgstr "Rol"
+
+msgid "Set"
+msgstr "Set"
+
+# Models - Stock
+msgid "Technician Stock"
+msgstr "Technicus Voorraad"
+
+msgid "Quantity"
+msgstr "Hoeveelheid"
+
+msgid "Reserved quantity"
+msgstr "Gereserveerde hoeveelheid"
+
+msgid "Stock Threshold"
+msgstr "Voorraad Drempel"
+
+msgid "Minimum quantity"
+msgstr "Minimale hoeveelheid"
+
+# Models - Orders
+msgid "Cart"
+msgstr "Winkelwagen"
+
+msgid "Carts"
+msgstr "Winkelwagens"
+
+msgid "Draft"
+msgstr "Concept"
+
+msgid "Submitted"
+msgstr "Ingediend"
+
+msgid "Demand"
+msgstr "Aanvraag"
+
+msgid "Demands"
+msgstr "Aanvragen"
+
+msgid "Approved"
+msgstr "Goedgekeurd"
+
+msgid "Partially Approved"
+msgstr "Gedeeltelijk Goedgekeurd"
+
+msgid "Refused"
+msgstr "Geweigerd"
+
+msgid "Prepared"
+msgstr "Voorbereid"
+
+msgid "Handed Over"
+msgstr "Overhandigd"
+
+msgid "Closed"
+msgstr "Gesloten"
+
+msgid "Digital Signature"
+msgstr "Digitale Handtekening"
+
+msgid "PIN Code"
+msgstr "PIN-code"
+
+# Navigation
+msgid "Home"
+msgstr "Start"
+
+msgid "Scan QR"
+msgstr "QR Scannen"
+
+msgid "My Cart"
+msgstr "Mijn Winkelwagen"
+
+msgid "My Demands"
+msgstr "Mijn Aanvragen"
+
+msgid "All Demands"
+msgstr "Alle Aanvragen"
+
+msgid "Logout"
+msgstr "Uitloggen"
+
+msgid "Language"
+msgstr "Taal"
+
+# Home page
+msgid "Welcome"
+msgstr "Welkom"
+
+msgid "Scan QR Code"
+msgstr "QR-code Scannen"
+
+msgid "Scan article QR codes to add to cart or declare usage"
+msgstr "Scan artikel QR-codes om toe te voegen aan winkelwagen of gebruik te melden"
+
+msgid "Start Scanning"
+msgstr "Begin Scannen"
+
+msgid "View and manage your current cart"
+msgstr "Bekijk en beheer uw huidige winkelwagen"
+
+msgid "View Cart"
+msgstr "Bekijk Winkelwagen"
+
+msgid "View and track material demands"
+msgstr "Bekijk en volg materiaalaanvragen"
+
+msgid "View Demands"
+msgstr "Bekijk Aanvragen"
+
+msgid "Admin Panel"
+msgstr "Beheerpaneel"
+
+msgid "Manage articles, users, and system settings"
+msgstr "Beheer artikelen, gebruikers en systeeminstellingen"
+
+msgid "Open Admin"
+msgstr "Open Beheer"
+
+msgid "API Documentation"
+msgstr "API Documentatie"
+
+msgid "View API documentation and test endpoints"
+msgstr "Bekijk API documentatie en test eindpunten"
+
+msgid "View API Docs"
+msgstr "Bekijk API Docs"
+
+msgid "Quick Stats"
+msgstr "Snelle Statistieken"
+
+msgid "Items in Cart"
+msgstr "Items in Winkelwagen"
+
+msgid "Stock Items"
+msgstr "Voorraad Items"
+
+msgid "Pending Demands"
+msgstr "Wachtende Aanvragen"
+
+msgid "Install App"
+msgstr "App Installeren"
+
+msgid "Install this app for better performance"
+msgstr "Installeer deze app voor betere prestaties"
+
+msgid "Install"
+msgstr "Installeren"
+
+# QR Scanner
+msgid "Point camera at QR code"
+msgstr "Richt camera op QR-code"
+
+msgid "QR code will be scanned automatically"
+msgstr "QR-code wordt automatisch gescand"
+
+msgid "Initializing camera..."
+msgstr "Camera initialiseren..."
+
+msgid "Camera access required"
+msgstr "Camera toegang vereist"
+
+msgid "Please allow camera access to scan QR codes"
+msgstr "Gelieve camera toegang toe te staan om QR-codes te scannen"
+
+msgid "Retry"
+msgstr "Opnieuw proberen"
+
+msgid "Stop Scanning"
+msgstr "Stop Scannen"
+
+msgid "Switch Camera"
+msgstr "Wissel Camera"
+
+msgid "Toggle Flash"
+msgstr "Schakel Flits"
+
+msgid "QR Code Detected"
+msgstr "QR-code Gedetecteerd"
+
+msgid "Scanned Content"
+msgstr "Gescande Inhoud"
+
+msgid "View Article"
+msgstr "Bekijk Artikel"
+
+msgid "Quick Add to Cart"
+msgstr "Snel Toevoegen aan Winkelwagen"
+
+msgid "Quick Declare Usage"
+msgstr "Snel Gebruik Melden"
+
+msgid "Scan Again"
+msgstr "Opnieuw Scannen"
+
+msgid "Manual Entry"
+msgstr "Handmatige Invoer"
+
+msgid "Can't scan? Enter the article reference manually:"
+msgstr "Kan niet scannen? Voer de artikelreferentie handmatig in:"
+
+msgid "Article Reference"
+msgstr "Artikel Referentie"
+
+msgid "Look Up"
+msgstr "Opzoeken"
+
+msgid "Notes"
+msgstr "Notities"
+
+msgid "optional"
+msgstr "optioneel"
+
+msgid "Add to Cart"
+msgstr "Toevoegen aan Winkelwagen"
+
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Quantity Used"
+msgstr "Gebruikte Hoeveelheid"
+
+msgid "Location/Usage"
+msgstr "Locatie/Gebruik"
+
+msgid "Where was this used?"
+msgstr "Waar werd dit gebruikt?"
+
+msgid "Declare Usage"
+msgstr "Gebruik Melden"
+
+# Error messages
+msgid "Only technicians can have carts"
+msgstr "Alleen technici kunnen winkelwagens hebben"
+
+msgid "Article reference is required"
+msgstr "Artikel referentie is vereist"
+
+msgid "Quantity must be positive"
+msgstr "Hoeveelheid moet positief zijn"
+
+msgid "Article not found"
+msgstr "Artikel niet gevonden"
+
+msgid "Location is required"
+msgstr "Locatie is vereist"
+
+msgid "Please enter a valid quantity"
+msgstr "Voer een geldige hoeveelheid in"
+
+msgid "Please enter a location"
+msgstr "Voer een locatie in"
+
+msgid "Failed to add to cart"
+msgstr "Toevoegen aan winkelwagen mislukt"
+
+msgid "Failed to declare usage"
+msgstr "Gebruik melden mislukt"
+
+msgid "Item added to cart successfully"
+msgstr "Item succesvol toegevoegd aan winkelwagen"
+
+msgid "Usage declared successfully"
+msgstr "Gebruik succesvol gemeld"
+
+# Common actions
+msgid "Save"
+msgstr "Opslaan"
+
+msgid "Delete"
+msgstr "Verwijderen"
+
+msgid "Edit"
+msgstr "Bewerken"
+
+msgid "Create"
+msgstr "Aanmaken"
+
+msgid "Update"
+msgstr "Bijwerken"
+
+msgid "Submit"
+msgstr "Indienen"
+
+msgid "Approve"
+msgstr "Goedkeuren"
+
+msgid "Refuse"
+msgstr "Weigeren"
+
+msgid "Prepare"
+msgstr "Voorbereiden"
+
+msgid "Close"
+msgstr "Sluiten"
+
+# Status messages
+msgid "Success"
+msgstr "Succes"
+
+msgid "Error"
+msgstr "Fout"
+
+msgid "Warning"
+msgstr "Waarschuwing"
+
+msgid "Info"
+msgstr "Informatie"
+
+# Date/Time
+msgid "Created at"
+msgstr "Aangemaakt op"
+
+msgid "Updated at"
+msgstr "Bijgewerkt op"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Time"
+msgstr "Tijd"
+
+# Generic
+msgid "Yes"
+msgstr "Ja"
+
+msgid "No"
+msgstr "Nee"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "Other"
+msgstr "Andere"
+
+msgid "Unknown"
+msgstr "Onbekend"
+
+msgid "Total"
+msgstr "Totaal"
+
+msgid "Count"
+msgstr "Aantal"
+
+msgid "Actions"
+msgstr "Acties"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Filter"
+msgstr "Filteren"
+
+msgid "Sort"
+msgstr "Sorteren"
+
+msgid "Export"
+msgstr "Exporteren"
+
+msgid "Import"
+msgstr "Importeren"
+
+msgid "Print"
+msgstr "Afdrukken"
+
+msgid "Download"
+msgstr "Downloaden"
+
+msgid "Upload"
+msgstr "Uploaden"
