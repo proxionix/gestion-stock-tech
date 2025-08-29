@@ -10,8 +10,12 @@ from typing import Callable, Optional
 
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.utils.deprecation import MiddlewareMixin
+from .security import (
+    SecurityValidator, IPSecurityManager, AttackDetector, 
+    SecurityAudit, get_client_ip
+)
 
 logger = logging.getLogger(__name__)
 

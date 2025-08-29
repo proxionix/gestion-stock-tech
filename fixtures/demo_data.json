@@ -1,0 +1,232 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "username": "admin",
+      "email": "admin@stock-system.local",
+      "first_name": "System",
+      "last_name": "Administrator",
+      "is_staff": true,
+      "is_active": true,
+      "is_superuser": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "password": "pbkdf2_sha256$600000$admin123$XYZ123"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "username": "tech_alice",
+      "email": "alice@stock-system.local",
+      "first_name": "Alice",
+      "last_name": "Dupont",
+      "is_staff": false,
+      "is_active": true,
+      "is_superuser": false,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "password": "pbkdf2_sha256$600000$tech123$XYZ456"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "username": "tech_bob",
+      "email": "bob@stock-system.local",
+      "first_name": "Bob",
+      "last_name": "Johnson",
+      "is_staff": false,
+      "is_active": true,
+      "is_superuser": false,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "password": "pbkdf2_sha256$600000$tech123$XYZ789"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "username": "tech_charlie",
+      "email": "charlie@stock-system.local",
+      "first_name": "Charlie",
+      "last_name": "Van Der Berg",
+      "is_staff": false,
+      "is_active": true,
+      "is_superuser": false,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "password": "pbkdf2_sha256$600000$tech123$XYZ012"
+    }
+  },
+  {
+    "model": "users.profile",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "role": "ADMIN",
+      "language_pref": "en",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.profile",
+    "pk": 2,
+    "fields": {
+      "user": 2,
+      "role": "TECH",
+      "language_pref": "fr",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.profile",
+    "pk": 3,
+    "fields": {
+      "user": 3,
+      "role": "TECH",
+      "language_pref": "en",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "users.profile",
+    "pk": 4,
+    "fields": {
+      "user": 4,
+      "role": "TECH",
+      "language_pref": "nl",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440001",
+    "fields": {
+      "reference": "SCREW-M6-20",
+      "name": "M6x20 Hex Screw",
+      "description": "M6 x 20mm hex head screw, stainless steel A2",
+      "unit": "PCS",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440002",
+    "fields": {
+      "reference": "SCREW-M8-25",
+      "name": "M8x25 Hex Screw", 
+      "description": "M8 x 25mm hex head screw, stainless steel A2",
+      "unit": "PCS",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440003",
+    "fields": {
+      "reference": "WASHER-M6",
+      "name": "M6 Flat Washer",
+      "description": "M6 flat washer, stainless steel",
+      "unit": "PCS",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440004",
+    "fields": {
+      "reference": "WASHER-M8",
+      "name": "M8 Flat Washer",
+      "description": "M8 flat washer, stainless steel",
+      "unit": "PCS",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440005",
+    "fields": {
+      "reference": "NUT-M6",
+      "name": "M6 Hex Nut",
+      "description": "M6 hex nut, stainless steel A2",
+      "unit": "PCS",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440006",
+    "fields": {
+      "reference": "GREASE-BEARING",
+      "name": "Bearing Grease",
+      "description": "High-performance bearing grease, 400g cartridge",
+      "unit": "KG",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440007",
+    "fields": {
+      "reference": "CABLE-ETH-2M",
+      "name": "Ethernet Cable 2m",
+      "description": "Cat6 Ethernet cable, 2 meters, blue",
+      "unit": "M",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440008",
+    "fields": {
+      "reference": "DRILL-BIT-6",
+      "name": "HSS Drill Bit 6mm",
+      "description": "High-speed steel drill bit, 6mm diameter",
+      "unit": "PCS",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440009",
+    "fields": {
+      "reference": "GLOVES-NITRILE",
+      "name": "Nitrile Gloves",
+      "description": "Disposable nitrile gloves, size L, box of 100",
+      "unit": "BOX",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "inventory.article",
+    "pk": "550e8400-e29b-41d4-a716-446655440010",
+    "fields": {
+      "reference": "WRENCH-ADJ-10",
+      "name": "Adjustable Wrench 10\"",
+      "description": "10-inch adjustable wrench, chrome vanadium steel",
+      "unit": "PCS",
+      "is_active": true,
+      "created_at": "2024-01-01T00:00:00Z",
+      "updated_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

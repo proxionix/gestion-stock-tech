@@ -2,7 +2,7 @@
 API URLs for Stock Management System.
 """
 from django.urls import path, include
-from apps.api.views import auth_views, inventory_views, orders_views
+from apps.api.views import auth_views, inventory_views, orders_views, qr_views, security_views
 from apps.core.views import health_check
 
 app_name = 'api'
@@ -22,6 +22,30 @@ inventory_urlpatterns = [
     path('my/stock/', inventory_views.my_stock, name='my_stock'),
     path('tech/<uuid:technician_id>/stock/', inventory_views.technician_stock, name='technician_stock'),
     path('use/', inventory_views.issue_stock, name='issue_stock'),
+]
+
+# QR Code URLs
+qr_urlpatterns = [
+    path('articles/<uuid:article_id>/qr/', qr_views.get_article_qr, name='get_article_qr'),
+    path('articles/<uuid:article_id>/qr/regenerate/', qr_views.regenerate_article_qr, name='regenerate_article_qr'),
+    path('articles/<uuid:article_id>/qr/print-sheet/', qr_views.print_qr_sheet, name='print_qr_sheet'),
+    path('articles/qr/print-multiple/', qr_views.print_multiple_qr_sheet, name='print_multiple_qr_sheet'),
+    path('articles/qr/templates/', qr_views.get_print_templates, name='get_print_templates'),
+    path('articles/qr/preview/', qr_views.preview_qr_layout, name='preview_qr_layout'),
+    path('articles/qr/regenerate-all/', qr_views.regenerate_all_qr_codes, name='regenerate_all_qr_codes'),
+]
+
+# Security URLs (Admin only)
+security_urlpatterns = [
+    path('security/dashboard/', security_views.security_dashboard, name='security_dashboard'),
+    path('security/block-ip/', security_views.block_ip, name='block_ip'),
+    path('security/unblock-ip/', security_views.unblock_ip, name='unblock_ip'),
+    path('security/events/', security_views.security_events, name='security_events'),
+    path('security/blocked-ips/', security_views.blocked_ips, name='blocked_ips'),
+    path('security/test/', security_views.security_test, name='security_test'),
+    path('security/metrics/', security_views.security_metrics, name='security_metrics'),
+    path('security/export-logs/', security_views.export_security_logs, name='export_security_logs'),
+    path('security/recommendations/', security_views.security_recommendations, name='security_recommendations'),
 ]
 
 # Orders URLs
@@ -55,6 +79,12 @@ urlpatterns = [
     
     # Inventory
     path('', include(inventory_urlpatterns)),
+    
+    # QR Codes
+    path('', include(qr_urlpatterns)),
+    
+    # Security (Admin only)
+    path('', include(security_urlpatterns)),
     
     # Orders
     path('', include(orders_urlpatterns)),
