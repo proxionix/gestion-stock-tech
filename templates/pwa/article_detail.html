@@ -1,0 +1,15 @@
+{% extends 'pwa/base.html' %}{% load i18n %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
+  <h1 class="text-2xl font-bold mb-2">{{ article.reference }} — {{ article.name }}</h1>
+  <p class="text-gray-600 mb-4">{{ article.description }}</p>
+  <div class="bg-white rounded shadow p-4">
+    <div class="mb-2"><strong>{% trans "Unit" %}:</strong> {{ article.unit }}</div>
+    {% if current_stock != None %}
+      <div class="mb-2"><strong>{% trans "Your stock" %}:</strong> {{ current_stock }}</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+

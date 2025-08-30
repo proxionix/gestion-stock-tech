@@ -20,10 +20,12 @@ def health_check(request):
     Health check endpoint for monitoring.
     Returns JSON with system status.
     """
+    from django.utils import timezone
     status = {
         'status': 'healthy',
         'version': '1.0.0',
-        'timestamp': str(request.user),
+        'timestamp': timezone.now().isoformat(),
+        'user': getattr(request.user, 'username', None),
         'checks': {}
     }
     

@@ -313,7 +313,7 @@ const urlsToCache = [
   '/app/scan/',
   '/static/css/app.css',
   '/static/js/app.js',
-  '/static/js/qr-scanner.min.js',
+  '/static/js/qr-scanner.js',
   '/static/pwa/icon-192.png',
   '/static/pwa/icon-512.png'
 ];

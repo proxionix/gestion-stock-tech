@@ -1,0 +1,32 @@
+{% extends 'pwa/base.html' %}{% load i18n %}
+{% block content %}
+<div class="max-w-4xl mx-auto">
+  <h1 class="text-2xl font-bold mb-4">{{ page_title|default:_("Demands") }}</h1>
+  {% if demands %}
+  <div class="bg-white rounded shadow">
+    <table class="min-w-full">
+      <thead class="bg-gray-50"><tr>
+        <th class="text-left p-3">{% trans "ID" %}</th>
+        <th class="text-left p-3">{% trans "Status" %}</th>
+        <th class="text-left p-3">{% trans "Created" %}</th>
+        <th class="text-left p-3">{% trans "Requested items" %}</th>
+      </tr></thead>
+      <tbody class="divide-y">
+        {% for d in demands %}
+          <tr>
+            <td class="p-3">{{ d.id }}</td>
+            <td class="p-3">{{ d.status }}</td>
+            <td class="p-3">{{ d.created_at }}</td>
+            <td class="p-3">{{ d.total_requested_items|default:"-" }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded">{% trans "No demands yet." %}</div>
+  {% endif %}
+</div>
+{% endblock %}
+
+
