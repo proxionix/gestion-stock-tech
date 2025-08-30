@@ -23,7 +23,7 @@ class ArticleListCreateView(generics.ListCreateAPIView):
     """
     serializer_class = ArticleSerializer
     permission_classes = [ArticlePermissions]
-    filter_backends = [DjangoFilterBackend, filters.SearchBackend, filters.OrderingFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['category', 'unit', 'is_active']
     search_fields = ['reference', 'name', 'description', 'manufacturer']
     ordering_fields = ['reference', 'name', 'created_at']

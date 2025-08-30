@@ -1,0 +1,28 @@
+{% extends "pwa/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Items" %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-semibold mb-4">{% trans "Items" %}</h1>
+<table class="min-w-full border">
+  <thead>
+    <tr class="bg-gray-100">
+      <th class="p-2 text-left">Ref</th>
+      <th class="p-2 text-left">{% trans "Name" %}</th>
+      <th class="p-2 text-left">{% trans "Stock" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for it in items %}
+    <tr class="border-t">
+      <td class="p-2">{{ it.reference }}</td>
+      <td class="p-2">{{ it.name }}</td>
+      <td class="p-2">{{ it.stock|default:0 }}</td>
+    </tr>
+  {% empty %}
+    <tr><td class="p-2" colspan="3">{% trans "No items yet." %}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

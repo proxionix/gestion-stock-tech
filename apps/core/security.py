@@ -51,7 +51,7 @@ class SecurityValidator:
     
     # Path traversal patterns
     PATH_PATTERNS = [
-        r'\.\./|\.\.\\\',
+        r'(?:\.\./|\.\.\\)',
         r'%2e%2e%2f',
         r'%2e%2e%5c',
         r'\.\.%c0%af',

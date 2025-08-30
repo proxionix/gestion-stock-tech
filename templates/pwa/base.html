@@ -1,25 +1,28 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 <!DOCTYPE html>
-<html lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ page_title }} - Stock Management{% endblock %}</title>
-    
+
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Stock Management">
-    
+
     <!-- PWA Icons -->
     <link rel="manifest" href="{% url 'pwa:manifest' %}">
     <link rel="icon" type="image/png" sizes="192x192" href="/static/pwa/icon-192.png">
     <link rel="apple-touch-icon" href="/static/pwa/icon-192.png">
-    
+
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="/static/css/app.css" rel="stylesheet">
-    
+
     {% block extra_head %}{% endblock %}
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -57,13 +60,17 @@
                             ({{ user.profile.get_role_display }})
                         {% endif %}
                     </span>
-                    <a href="{% url 'admin:logout' %}" class="ml-4 px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
-                        {% trans "Logout" %}
-                    </a>
+                    <!-- LOGOUT (POST) -->
+                    <form action="{% url 'admin:logout' %}" method="post" class="inline ml-4">
+                        {% csrf_token %}
+                        <button type="submit" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700">
+                            {% trans "Logout" %}
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
-        
+
         <!-- Mobile menu -->
         <div class="md:hidden" id="mobile-menu">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
@@ -81,6 +88,13 @@
                 <a href="{% url 'pwa:my_demands' %}" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">
                     {% trans "Demands" %}
                 </a>
+                <!-- LOGOUT (POST) mobile -->
+                <form action="{% url 'admin:logout' %}" method="post" class="px-2 pt-2 pb-3 sm:px-3">
+                    {% csrf_token %}
+                    <button type="submit" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-700">
+                        {% trans "Logout" %}
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
@@ -89,9 +103,17 @@
     {% if messages %}
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} bg-{{ message.tags == 'error'|yesno:'red,green' }}-100 border border-{{ message.tags == 'error'|yesno:'red,green' }}-400 text-{{ message.tags == 'error'|yesno:'red,green' }}-700 px-4 py-3 rounded mb-4">
-                    {{ message }}
-                </div>
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-error bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                {% elif message.tags == 'warning' %}
+                    <div class="alert alert-warning bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+                {% elif message.tags == 'success' %}
+                    <div class="alert alert-success bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                {% else %}
+                    <div class="alert alert-info bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-4">
+                {% endif %}
+                        {{ message }}
+                    </div>
             {% endfor %}
         </div>
     {% endif %}
@@ -105,7 +127,7 @@
     <footer class="bg-white border-t border-gray-200 mt-auto">
         <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
             <div class="text-center text-sm text-gray-500">
-                Stock Management System v1.0 - 
+                Stock Management System v1.0 -
                 {% trans "Language" %}: {{ LANGUAGE_CODE|upper }}
             </div>
         </div>
@@ -114,7 +136,7 @@
     <!-- JavaScript -->
     <script src="/static/js/app.js"></script>
     {% block extra_scripts %}{% endblock %}
-    
+
     <!-- PWA Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
