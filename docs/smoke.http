@@ -1,0 +1,50 @@
+### Login (replace creds)
+POST http://localhost:8000/api/auth/login/
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "adminpass"
+}
+
+### Admin adjust stock
+POST http://localhost:8000/api/admin/adjust-stock/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "technician_id": "{{tech1}}",
+  "article_id": "{{article1}}",
+  "operation": "add",
+  "quantity": "5",
+  "reason": "inventory_correction"
+}
+
+### Create reservation (as tech)
+POST http://localhost:8000/api/reservations/create/
+Authorization: Bearer {{tech_token}}
+Content-Type: application/json
+
+{
+  "technician_id": "{{tech1}}",
+  "article_id": "{{article1}}",
+  "qty_reserved": "2"
+}
+
+### Approve reservation
+POST http://localhost:8000/api/reservations/{{reservation_id}}/approve/
+Authorization: Bearer {{access_token}}
+
+### Transfer
+POST http://localhost:8000/api/transfers/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+  "from_technician_id": "{{tech1}}",
+  "to_technician_id": "{{tech2}}",
+  "article_id": "{{article1}}",
+  "quantity": "1"
+}
+
+

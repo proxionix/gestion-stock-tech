@@ -50,16 +50,45 @@ Enterprise-grade stock management system for technicians, built with Django 5 an
 
 ## 🛠 Technology Stack
 
-- **Backend**: Django 5.0, Django REST Framework
+- **Runtime**: Python 3.11 (Docker base: `python:3.11-slim`)
+- **Backend**: Django 5.2.5, Django REST Framework 3.16.1
+- **API Docs**: drf-spectacular 0.28.0 (OpenAPI) at `/api/docs/`
 - **Database**: PostgreSQL 15
 - **Cache/Queue**: Redis 7
-- **Task Queue**: Celery with Redis broker
+- **Task Queue**: Celery 5.5.3 (broker/result: Redis)
 - **Frontend**: Server-side templates + Progressive Web App
-- **QR Scanning**: ZXing library
-- **PDF Generation**: ReportLab
+- **QR Scanning**: ZXing (UMD via CDN)
+- **PDF Generation**: ReportLab 4.x
+- **Static Files**: WhiteNoise 6.9.0
+- **JWT**: PyJWT 2.10.1 (custom simple JWT service)
 - **Deployment**: Docker & Docker Compose
-- **Security**: OWASP compliant middleware
+- **Security**: OWASP-aligned middlewares (CSP/HSTS/headers, brute-force, scan detection)
 - **Monitoring**: Built-in health checks
+
+### Versions & compatibility
+
+This repo is tested with the following pinned dependencies (see `requirements.txt`):
+
+```text
+Django==5.2.5
+djangorestframework==3.16.1
+drf-spectacular==0.28.0
+whitenoise==6.9.0
+redis==5.2.1
+celery[redis]==5.5.3
+PyJWT==2.10.1
+reportlab==4.4.3
+Pillow==11.3.0
+qrcode[pil]==8.2
+django-cors-headers==4.7.0
+django-environ==0.12.0
+psycopg2-binary==2.9.10  (used in Docker Python 3.11)
+psycopg[binary]==3.2.9    (used if Python ≥ 3.13)
+```
+
+Notes:
+- Docker uses Python 3.11, so `psycopg2-binary` is installed. For local Python 3.13+, `psycopg[binary]` is used via the conditional markers in `requirements.txt`.
+- OpenAPI served at `/api/schema/` and Swagger UI at `/api/docs/`.
 
 ## 🚀 Quick Start
 
@@ -119,6 +148,17 @@ The application includes a Progressive Web App with:
 - **Responsive Design**: Works on mobile and desktop
 - **Push Notifications**: Ready for push notification integration
 
+### PWA asset checklist (must exist)
+
+- Templates: `templates/pwa/base.html`, `templates/pwa/home.html`, `templates/pwa/scan.html`,
+  `templates/pwa/cart.html`, `templates/pwa/demands.html`, `templates/pwa/article_detail.html`
+- Static assets:
+  - CSS: `/static/css/app.css`
+  - JS: `/static/js/app.js`, `/static/js/qr-scanner.js`
+  - Icons: `/static/pwa/icon-192.png`, `/static/pwa/icon-512.png`
+- Service Worker registration from `base.html` at `/sw.js`
+- Service Worker cache list (in `apps/pwa/views.py`) includes only existing files
+
 ### QR Code Scanning
 - Open PWA at `/app/scan/`
 - Allow camera permissions
@@ -135,6 +175,8 @@ The application includes a Progressive Web App with:
 - **Audit Logging**: Immutable event trails
 - **Rate Limiting**: API throttling
 - **Security Headers**: Content Security Policy, HSTS, etc.
+
+Admin logout requires POST from Django ≥5. For the PWA navbar, `templates/pwa/base.html` uses a POST form with `{% csrf_token %}` targeting `{% url 'admin:logout' %}` to avoid 405.
 
 ### Data Protection
 - **GDPR Ready**: Data export and retention policies
@@ -375,6 +417,12 @@ The application automatically sets:
    # Reset database (DEV ONLY)
    make db-reset
    ```
+
+5. **Service Worker caches missing asset**
+   - Ensure `apps/pwa/views.py` cache list references `/static/js/qr-scanner.js` (not `.min.js`).
+
+6. **PWA icons missing**
+   - Provide placeholders at `/static/pwa/icon-192.png` and `/static/pwa/icon-512.png`.
 
 ### Logs
 ```bash

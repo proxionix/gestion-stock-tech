@@ -25,10 +25,36 @@ def app_home(request):
         messages.error(request, _('No profile found. Please contact administrator.'))
         return redirect('admin:login')
     
+    # Simple post-login banner: last 5 audit events impacting this technician
+    notifications = []
+    try:
+        from apps.audit.services.audit_service import AuditService
+        from apps.audit.models import EventLog
+        if request.user.profile.is_technician:
+            # Filter recent events related to this user or stock movements
+            recent = EventLog.objects.filter(
+                actor_user__isnull=False
+            ).order_by('-timestamp')[:50]
+            for ev in recent:
+                # naive filter: include if after_data mentions this technician id
+                after = ev.after_data or {}
+                if isinstance(after, dict) and (
+                    str(request.user.profile.id) in str(after)
+                ):
+                    notifications.append({
+                        'action': ev.action,
+                        'when': ev.timestamp,
+                        'by': ev.actor_user.get_username(),
+                    })
+            notifications = notifications[:5]
+    except Exception:
+        notifications = []
+
     context = {
         'user': request.user,
         'profile': request.user.profile,
         'page_title': _('Stock Management'),
+        'notifications': notifications,
     }
     
     return render(request, 'pwa/home.html', context)

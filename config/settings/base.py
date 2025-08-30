@@ -17,7 +17,7 @@ env = environ.Env(
     ALLOWED_HOSTS=(list, []),
     DATABASE_URL=(str, ''),
     REDIS_URL=(str, 'redis://localhost:6379/0'),
-    LANGUAGE_CODE=(str, 'fr-be'),
+    LANGUAGE_CODE=(str, 'fr'),
     TIME_ZONE=(str, 'Europe/Brussels'),
     USE_TZ=(bool, True),
     CORS_ALLOW_ALL_ORIGINS=(bool, False),
@@ -151,8 +151,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = env('LANGUAGE_CODE')
 
 LANGUAGES = [
-    ('fr-be', _('French (Belgium)')),
-    ('nl-be', _('Dutch (Belgium)')),
+    ('fr', _('French')),
+    ('nl', _('Dutch')),
     ('en', _('English')),
 ]
 

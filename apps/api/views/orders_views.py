@@ -8,15 +8,19 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from apps.orders.models import Panier, Demande, DemandeStatus
 from apps.orders.services.panier_service import PanierService
+from apps.audit.services.audit_service import AuditService
 from apps.orders.services.admin_workflow import AdminWorkflow
 from apps.api.serializers import (
     PanierSerializer, DemandeSerializer, AddToCartSerializer, 
     UpdateCartLineSerializer, ApprovePartialSerializer, 
-    RefuseDemandeSerializer, HandoverSerializer
+    RefuseDemandeSerializer, HandoverSerializer,
+    ReservationSerializer, ReservationCreateSerializer, ReservationApproveSerializer,
+    TransferSerializer
 )
 from apps.api.permissions import (
     IsTechnicianOrAdmin, IsAdmin, DemandPermissions
 )
+from apps.orders.models import Reservation, ReservationStatus
 
 
 @api_view(['GET'])
@@ -390,3 +394,161 @@ def demands_queue(request):
         'demands': demands,
         'total_count': len(demands)
     })
+
+
+# Reservations
+@api_view(['GET'])
+@permission_classes([IsTechnicianOrAdmin])
+def list_reservations(request):
+    if request.user.profile.is_admin:
+        qs = Reservation.objects.all().select_related('technician__user', 'article')
+    else:
+        qs = Reservation.objects.filter(technician=request.user.profile).select_related('article')
+    data = [
+        {
+            'id': str(r.id),
+            'technician': {'id': str(r.technician.id), 'name': r.technician.display_name},
+            'article': {'id': str(r.article.id), 'reference': r.article.reference, 'name': r.article.name},
+            'qty_reserved': str(r.qty_reserved),
+            'scheduled_for': r.scheduled_for.isoformat() if r.scheduled_for else None,
+            'status': r.status,
+            'notes': r.notes,
+            'created_at': r.created_at.isoformat(),
+        }
+        for r in qs.order_by('-created_at')[:200]
+    ]
+    return Response({'reservations': data, 'total_count': len(data)})
+
+
+@api_view(['POST'])
+@permission_classes([IsTechnicianOrAdmin])
+def create_reservation(request):
+    serializer = ReservationCreateSerializer(data=request.data)
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=400)
+    data = serializer.validated_data
+    try:
+        from apps.users.models import Profile
+        from apps.inventory.models import Article
+        technician = Profile.objects.get(id=data['technician_id'], role='TECH')
+        # Techs can only create for themselves
+        if request.user.profile.is_technician and technician != request.user.profile:
+            return Response({'error': 'Technician can only create for self'}, status=403)
+        article = Article.objects.get(id=data['article_id'])
+        r = Reservation.objects.create(
+            technician=technician,
+            article=article,
+            qty_reserved=data['qty_reserved'],
+            scheduled_for=data.get('scheduled_for'),
+            status=ReservationStatus.PENDING,
+            created_by=request.user,
+            notes=data.get('notes', '')
+        )
+        AuditService.log_event(
+            actor_user=request.user,
+            entity_type='Reservation',
+            entity_id=str(r.id),
+            action='create_reservation',
+            after_data={'technician_id': str(technician.id), 'article_id': str(article.id), 'qty_reserved': str(r.qty_reserved)}
+        )
+        return Response({'reservation_id': str(r.id), 'status': r.status})
+    except Profile.DoesNotExist:
+        return Response({'error': 'Technician not found'}, status=404)
+    except Article.DoesNotExist:
+        return Response({'error': 'Article not found'}, status=404)
+
+
+@api_view(['POST'])
+@permission_classes([IsAdmin])
+def approve_reservation(request, reservation_id):
+    try:
+        r = Reservation.objects.select_for_update().get(id=reservation_id)
+        if r.status != ReservationStatus.PENDING:
+            return Response({'error': 'Reservation is not pending'}, status=400)
+        r.approve(approved_by=request.user)
+        AuditService.log_event(
+            actor_user=request.user,
+            entity_type='Reservation',
+            entity_id=str(r.id),
+            action='approve_reservation',
+            after_data={'status': r.status, 'approved_by': request.user.id}
+        )
+        return Response({'message': 'Reservation approved', 'status': r.status})
+    except Reservation.DoesNotExist:
+        return Response({'error': 'Reservation not found'}, status=404)
+    except Exception as e:
+        return Response({'error': str(e)}, status=400)
+
+
+@api_view(['POST'])
+@permission_classes([IsAdmin])
+def cancel_reservation(request, reservation_id):
+    try:
+        from apps.inventory.models import StockTech
+        r = Reservation.objects.select_for_update().get(id=reservation_id)
+        if r.status == ReservationStatus.CANCELLED:
+            return Response({'message': 'Already cancelled'})
+        # If previously approved, release reserved quantity
+        if r.status == ReservationStatus.APPROVED and r.qty_reserved > 0:
+            stock = StockTech.objects.select_for_update().get(technician=r.technician, article=r.article)
+            stock.release_reservation(r.qty_reserved)
+        r.status = ReservationStatus.CANCELLED
+        r.save(update_fields=['status', 'updated_at'])
+        AuditService.log_event(
+            actor_user=request.user,
+            entity_type='Reservation',
+            entity_id=str(r.id),
+            action='cancel_reservation',
+            after_data={'status': r.status}
+        )
+        return Response({'message': 'Reservation cancelled', 'status': r.status})
+    except Reservation.DoesNotExist:
+        return Response({'error': 'Reservation not found'}, status=404)
+    except Exception as e:
+        return Response({'error': str(e)}, status=400)
+
+
+# Transfers
+@api_view(['POST'])
+@permission_classes([IsAdmin])
+def transfer_stock(request):
+    serializer = TransferSerializer(data=request.data)
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=400)
+    data = serializer.validated_data
+    try:
+        from apps.users.models import Profile
+        from apps.inventory.models import Article
+        from apps.inventory.services.stock_service import StockService
+        from apps.orders.services.transfer_pdf import TransferPDFService
+
+        from_tech = Profile.objects.get(id=data['from_technician_id'], role='TECH')
+        to_tech = Profile.objects.get(id=data['to_technician_id'], role='TECH')
+        article = Article.objects.get(id=data['article_id'])
+        issue_mvt, receipt_mvt = StockService.transfer_stock(
+            from_technician=from_tech,
+            to_technician=to_tech,
+            article=article,
+            quantity=data['quantity'],
+            performed_by=request.user,
+            notes=data.get('notes', '')
+        )
+        pdf_bytes = TransferPDFService.create_transfer_pdf(
+            from_technician=from_tech,
+            to_technician=to_tech,
+            article=article,
+            quantity=data['quantity'],
+            performed_by=request.user
+        )
+        return Response({
+            'message': 'Transfer completed',
+            'issue_movement_id': str(issue_mvt.id),
+            'receipt_movement_id': str(receipt_mvt.id),
+            'transfer_note_pdf_size': len(pdf_bytes)
+        })
+    except Profile.DoesNotExist:
+        return Response({'error': 'Technician not found'}, status=404)
+    except Article.DoesNotExist:
+        return Response({'error': 'Article not found'}, status=404)
+    except Exception as e:
+        return Response({'error': str(e)}, status=400)

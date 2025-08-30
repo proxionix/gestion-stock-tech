@@ -22,6 +22,7 @@ inventory_urlpatterns = [
     path('my/stock/', inventory_views.my_stock, name='my_stock'),
     path('tech/<uuid:technician_id>/stock/', inventory_views.technician_stock, name='technician_stock'),
     path('use/', inventory_views.issue_stock, name='issue_stock'),
+    path('admin/adjust-stock/', inventory_views.admin_adjust_stock, name='admin_adjust_stock'),
 ]
 
 # QR Code URLs
@@ -67,6 +68,15 @@ orders_urlpatterns = [
     path('demandes/<uuid:demande_id>/refuse/', orders_views.refuse_demand, name='refuse_demand'),
     path('demandes/<uuid:demande_id>/prepare/', orders_views.prepare_demand, name='prepare_demand'),
     path('demandes/<uuid:demande_id>/handover/', orders_views.handover_demand, name='handover_demand'),
+
+    # Reservations
+    path('reservations/', orders_views.list_reservations, name='reservations_list'),
+    path('reservations/create/', orders_views.create_reservation, name='reservation_create'),
+    path('reservations/<uuid:reservation_id>/approve/', orders_views.approve_reservation, name='reservation_approve'),
+    path('reservations/<uuid:reservation_id>/cancel/', orders_views.cancel_reservation, name='reservation_cancel'),
+
+    # Transfers
+    path('transfers/', orders_views.transfer_stock, name='transfer_stock'),
 ]
 
 # Main URL patterns

@@ -10,6 +10,7 @@ from django.utils import timezone
 from apps.core.models import BaseModel, TimestampedModel
 from apps.users.models import Profile
 from apps.inventory.models import Article
+from django.utils import timezone
 
 
 class PanierStatus(models.TextChoices):
@@ -410,3 +411,105 @@ class DemandeLine(TimestampedModel):
     def is_partially_approved(self):
         """Check if quantity is partially approved."""
         return 0 < self.qty_approved < self.qty_requested
+
+
+# Reservations for planned interventions
+class ReservationStatus(models.TextChoices):
+    """Reservation status choices."""
+    PENDING = 'PENDING', _('Pending')
+    APPROVED = 'APPROVED', _('Approved')
+    CANCELLED = 'CANCELLED', _('Cancelled')
+
+
+class Reservation(BaseModel):
+    """
+    Planned reservation that deducts availability when approved.
+    Created by Technician or Admin, approved by Admin.
+    """
+    technician = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name='reservations',
+        verbose_name=_('Technician'),
+        limit_choices_to={'role': 'TECH'}
+    )
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name='reservations',
+        verbose_name=_('Article')
+    )
+    qty_reserved = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(Decimal('0.01'))],
+        verbose_name=_('Reserved quantity')
+    )
+    scheduled_for = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_('Scheduled for')
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=ReservationStatus.choices,
+        default=ReservationStatus.PENDING,
+        verbose_name=_('Status')
+    )
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        related_name='created_reservations',
+        verbose_name=_('Created by')
+    )
+    approved_by = models.ForeignKey(
+        User,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+        related_name='approved_reservations',
+        verbose_name=_('Approved by')
+    )
+    approved_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_('Approved at')
+    )
+    notes = models.TextField(
+        blank=True,
+        verbose_name=_('Notes')
+    )
+
+    class Meta:
+        verbose_name = _('Reservation')
+        verbose_name_plural = _('Reservations')
+        db_table = 'orders_reservation'
+        indexes = [
+            models.Index(fields=['technician', 'status']),
+            models.Index(fields=['article']),
+            models.Index(fields=['scheduled_for']),
+        ]
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Reservation {self.id} - {self.technician.display_name} {self.article.reference} ({self.status})"
+
+    def can_approve(self) -> bool:
+        return self.status == ReservationStatus.PENDING and self.qty_reserved > 0
+
+    def approve(self, approved_by: User):
+        """Approve and reserve stock for technician. Transaction handled at service/view layer."""
+        if not self.can_approve():
+            raise ValueError('Reservation cannot be approved')
+        from apps.inventory.models import StockTech
+        # Lock and reserve
+        stock, _ = StockTech.objects.select_for_update().get_or_create(
+            technician=self.technician,
+            article=self.article,
+            defaults={'quantity': Decimal('0')}
+        )
+        stock.reserve_quantity(self.qty_reserved)
+        self.status = ReservationStatus.APPROVED
+        self.approved_by = approved_by
+        self.approved_at = timezone.now()
+        self.save(update_fields=['status', 'approved_by', 'approved_at', 'updated_at'])

@@ -9,7 +9,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from apps.users.models import Profile, UserRole, LanguageChoice
 from apps.inventory.models import Article, StockTech, Threshold
-from apps.orders.models import Panier, PanierLine, Demande, DemandeLine, HandoverMethod
+from apps.orders.models import Panier, PanierLine, Demande, DemandeLine, HandoverMethod, Reservation
 from apps.audit.models import StockMovement, EventLog, ThresholdAlert
 
 
@@ -383,3 +383,54 @@ class HealthCheckSerializer(serializers.Serializer):
     version = serializers.CharField()
     timestamp = serializers.CharField()
     checks = serializers.DictField()
+
+
+# Admin stock adjustment
+class StockAdjustSerializer(serializers.Serializer):
+    """Serializer for admin stock adjustments (add/remove/set)."""
+    technician_id = serializers.UUIDField()
+    article_id = serializers.UUIDField()
+    operation = serializers.ChoiceField(choices=['add', 'remove', 'set'])
+    quantity = serializers.DecimalField(max_digits=10, decimal_places=2)
+    reason = serializers.CharField(required=False, allow_blank=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
+
+
+# Reservation serializers
+class ReservationSerializer(serializers.ModelSerializer):
+    technician = ProfileSerializer(read_only=True)
+    article = ArticleSerializer(read_only=True)
+    class Meta:
+        model = Reservation
+        fields = [
+            'id', 'technician', 'article', 'qty_reserved', 'scheduled_for',
+            'status', 'created_by', 'approved_by', 'approved_at', 'notes',
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'status', 'created_by', 'approved_by', 'approved_at', 'created_at', 'updated_at']
+
+
+class ReservationCreateSerializer(serializers.Serializer):
+    technician_id = serializers.UUIDField()
+    article_id = serializers.UUIDField()
+    qty_reserved = serializers.DecimalField(max_digits=10, decimal_places=2)
+    scheduled_for = serializers.DateTimeField(required=False, allow_null=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
+
+    def validate_qty_reserved(self, value):
+        if value <= 0:
+            raise serializers.ValidationError(_('Quantity must be positive.'))
+        return value
+
+
+class ReservationApproveSerializer(serializers.Serializer):
+    approve = serializers.BooleanField()
+    notes = serializers.CharField(required=False, allow_blank=True)
+
+
+class TransferSerializer(serializers.Serializer):
+    from_technician_id = serializers.UUIDField()
+    to_technician_id = serializers.UUIDField()
+    article_id = serializers.UUIDField()
+    quantity = serializers.DecimalField(max_digits=10, decimal_places=2)
+    notes = serializers.CharField(required=False, allow_blank=True)

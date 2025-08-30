@@ -9,7 +9,8 @@ from rest_framework import filters
 from apps.inventory.models import Article, StockTech, Threshold
 from apps.inventory.services.stock_service import StockService
 from apps.api.serializers import (
-    ArticleSerializer, StockTechSerializer, ThresholdSerializer, IssueStockSerializer
+    ArticleSerializer, StockTechSerializer, ThresholdSerializer, IssueStockSerializer,
+    StockAdjustSerializer
 )
 from apps.api.permissions import (
     ArticlePermissions, IsTechnicianOrAdmin, IsTechnicianOwnerOrAdmin, IsAdmin
@@ -148,3 +149,70 @@ def issue_stock(request):
             )
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAdmin])
+def admin_adjust_stock(request):
+    """
+    Admin adjustment: add/remove/set stock for a technician.
+    """
+    serializer = StockAdjustSerializer(data=request.data)
+    if not serializer.is_valid():
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    data = serializer.validated_data
+    try:
+        from apps.users.models import Profile
+        from apps.inventory.models import Article, StockTech
+        from apps.inventory.services.stock_service import StockService
+        from apps.audit.services.audit_service import AuditService
+
+        technician = Profile.objects.get(id=data['technician_id'], role='TECH')
+        article = Article.objects.get(id=data['article_id'])
+
+        # Lock stock row
+        stock, _ = StockTech.objects.select_for_update().get_or_create(
+            technician=technician,
+            article=article,
+            defaults={'quantity': 0}
+        )
+
+        operation = data['operation']
+        qty = data['quantity']
+        reason = data.get('reason', '')
+        notes = data.get('notes', '')
+
+        old_qty = stock.quantity
+        if operation == 'add':
+            new_qty = old_qty + qty
+        elif operation == 'remove':
+            if qty > stock.available_quantity:
+                return Response({'error': 'Insufficient stock to remove'}, status=400)
+            new_qty = old_qty - qty
+        else:  # set
+            if qty < 0:
+                return Response({'error': 'Quantity cannot be negative'}, status=400)
+            new_qty = qty
+
+        # Use adjust to keep movement/audit consistent
+        movement = StockService.adjust_stock(
+            technician=technician,
+            article=article,
+            new_quantity=new_qty,
+            reason=reason or f"admin_{operation}",
+            performed_by=request.user,
+            notes=notes
+        )
+
+        return Response({
+            'message': 'Stock adjusted',
+            'movement_id': str(movement.id),
+            'balance_after': str(movement.balance_after)
+        })
+    except Profile.DoesNotExist:
+        return Response({'error': 'Technician not found'}, status=404)
+    except Article.DoesNotExist:
+        return Response({'error': 'Article not found'}, status=404)
+    except Exception as e:
+        return Response({'error': str(e)}, status=400)

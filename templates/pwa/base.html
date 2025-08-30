@@ -60,6 +60,9 @@
                             ({{ user.profile.get_role_display }})
                         {% endif %}
                     </span>
+                    <div class="ml-4">
+                        {% include "pwa/_language_switcher.html" %}
+                    </div>
                     <!-- LOGOUT (POST) -->
                     <form action="{% url 'admin:logout' %}" method="post" class="inline ml-4">
                         {% csrf_token %}

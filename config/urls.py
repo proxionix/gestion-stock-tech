@@ -29,6 +29,11 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/app/', permanent=False)),
 ]
 
+# i18n (language switching)
+urlpatterns += [
+    path('i18n/', include('django.conf.urls.i18n')),
+]
+
 # Serve media files in development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
